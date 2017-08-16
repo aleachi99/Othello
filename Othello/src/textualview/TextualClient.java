@@ -60,37 +60,47 @@ public class TextualClient {
                     messaggioServer=serverInput.readLine();
                     System.out.println("ho letto");
                     System.out.println(messaggioServer);
-                    if(messaggioServer.equals("round: <"+idClient+">;")){    
-                        do{
-                            
-                            System.out.println("Inserisci le coordinate della prossima mossa");
-                            cordX = new Scanner(System.in).nextInt();
-                            cordY = new Scanner(System.in).nextInt();
-                            serverOutput.println("place: <"+cordX+">, <"+cordY+">;");
-                            messaggioServer=serverInput.readLine();
-                            
-                        }while (!messaggioServer.startsWith("update: "));
-                            int cordX = Integer.parseInt(messaggioServer.substring(14, 15));
-                            int cordY = Integer.parseInt(messaggioServer.substring(19, 20));
-                            String col = messaggioServer.substring(9, 10);
-                            campo.posizionaNuovaCasella(cordX, cordY, col);
-                            campo.print();
-                    } else{
-                        do{
-                           System.out.println("Non è il mio turno.. aspetto");
-                           messaggioServer=serverInput.readLine();
-                           if (messaggioServer.startsWith("update: ")){
+                    if (!(messaggioServer.startsWith("end: "))){
+                        if(messaggioServer.equals("round: <"+idClient+">;")){    
+                            do{
+
+                                    System.out.println("Inserisci le coordinate della prossima mossa");
+                                    cordX = new Scanner(System.in).nextInt();
+                                    cordY = new Scanner(System.in).nextInt();
+                                    serverOutput.println("place: <"+cordX+">, <"+cordY+">;");
+                                    messaggioServer=serverInput.readLine();
+                                    System.out.println(messaggioServer);
+                                    if (messaggioServer.equals("move not valid;")){
+                                        messaggioServer=serverInput.readLine();
+                                        System.out.println(messaggioServer);
+                                    }
+
+                            }while (!messaggioServer.startsWith("update: "));
                                 int cordX = Integer.parseInt(messaggioServer.substring(14, 15));
                                 int cordY = Integer.parseInt(messaggioServer.substring(19, 20));
-                                System.out.println (messaggioServer.substring(9,10));
-                                String col = messaggioServer.substring(9,10);
-                                campo.posizionaNuovaCasella (cordX, cordY, col);
+                                String col = messaggioServer.substring(9, 10);
+                                campo.posizionaNuovaCasella(cordX, cordY, col);
                                 campo.print();
-                                System.out.println (messaggioServer);
-                           } else{
-                            System.out.println(messaggioServer);
-                          }
-                        }while (messaggioServer.startsWith("update: ")==false);
+                        } else{
+                            do{
+                               System.out.println("Non è il mio turno.. aspetto");
+                               messaggioServer=serverInput.readLine();
+                               if (messaggioServer.startsWith("update: ")){
+                                    int cordX = Integer.parseInt(messaggioServer.substring(14, 15));
+                                    int cordY = Integer.parseInt(messaggioServer.substring(19, 20));
+                                    System.out.println (messaggioServer.substring(9,10));
+                                    String col = messaggioServer.substring(9,10);
+                                    campo.posizionaNuovaCasella (cordX, cordY, col);
+                                    campo.print();
+                                    System.out.println (messaggioServer);
+                               } else{
+                                System.out.println(messaggioServer);
+                              }
+                            }while (messaggioServer.startsWith("update: ")==false);
+                        }
+                    } else{
+                        System.out.println ("Partita Finita!");
+                        System.out.println (messaggioServer);
                     }
                 }while (messaggioServer.startsWith("end: ")==false); //Controlla se la partita è ancora aperta
         } catch (Exception e) {

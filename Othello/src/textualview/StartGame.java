@@ -25,7 +25,6 @@ public class StartGame {
             try{  
                 Socket s = new Socket(ip,port);
                 new TextualClient(s,ip,port);
-                System.out.println("Socket creata!");
             }
             catch(Exception ex){ 
                 System.out.println("ECCEZIONE socket inizio connessione \n " + ex); 

@@ -107,6 +107,7 @@ public class OthelloServer extends Thread{
                 }
 
             } while (partita.inCorso());
+            
             int pedineBianche = partita.getPedineBianche();
             int pedineNere = partita.getPedineNere();
             client1Output.println("end: black, <" + pedineNere + ">, white, <" + pedineBianche + ">;");
