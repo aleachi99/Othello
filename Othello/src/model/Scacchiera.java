@@ -100,9 +100,10 @@ public class Scacchiera {
         return cont;
     }
     
-    public void posizionaNuovaCasella(int x, int y, String col){
+    public boolean posizionaNuovaCasella(int x, int y, String col){
         boolean direzioniValide[]= new boolean[8];
         calcolaMosseValide(col);
+        
         if (mosseValide[x][y]){
             if (controllaValiditàMossa(x,y,col,0)){
                 direzioniValide[0] = true;
@@ -154,9 +155,12 @@ public class Scacchiera {
             }
             if (oneDirValid){
                 mappa[x][y].cambiaColore(col);
+                
             }
+            return true;
         } else{
-            System.out.println("Non puoi mettere la pedina in quella casella.");
+            System.out.println("Non puoi mettere la pedina nella casella "+x+";"+y);
+                return false;
         }
     }
     
@@ -477,5 +481,15 @@ public class Scacchiera {
                     return step2controlloValiditàMossaCambiaColore(newX, newY, turno, dir);
                 }
             }
+    }
+    
+    public void printMosseValide (String col){
+        calcolaMosseValide(col);
+        for (int r=0; r<8; r++){
+            for (int c=0; c<8; c++){
+                System.out.print(mosseValide[r][c]+" | ");
+            }
+            System.out.println();
+        }
     }
 }
