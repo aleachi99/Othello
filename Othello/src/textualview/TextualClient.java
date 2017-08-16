@@ -79,18 +79,20 @@ public class TextualClient {
                         do{
                            System.out.println("Non è il mio turno.. aspetto");
                            messaggioServer=serverInput.readLine();
-                           int cordX = Integer.parseInt(messaggioServer.substring(14, 15));
-                           int cordY = Integer.parseInt(messaggioServer.substring(19, 20));
-                           System.out.println(cordX);
-                           System.out.println(cordY);
-                           System.out.println (messaggioServer.substring(9,10));
-                           String col = messaggioServer.substring(9,20);
-                           campo.posizionaNuovaCasella (cordX, cordY, col);
-                           campo.print();
-                           System.out.println(messaggioServer.startsWith("update: ")+" non è il mio turno");
+                           if (messaggioServer.startsWith("update: ")){
+                                int cordX = Integer.parseInt(messaggioServer.substring(14, 15));
+                                int cordY = Integer.parseInt(messaggioServer.substring(19, 20));
+                                System.out.println (messaggioServer.substring(9,10));
+                                String col = messaggioServer.substring(9,10);
+                                campo.posizionaNuovaCasella (cordX, cordY, col);
+                                campo.print();
+                                System.out.println (messaggioServer);
+                           } else{
+                            System.out.println(messaggioServer);
+                          }
                         }while (messaggioServer.startsWith("update: ")==false);
                     }
-                }while (true); //Controllare se la partita è ancora aperta
+                }while (messaggioServer.startsWith("end: ")==false); //Controlla se la partita è ancora aperta
         } catch (Exception e) {
             System.err.println(e);
             e.printStackTrace();
