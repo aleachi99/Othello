@@ -46,6 +46,10 @@ public class Partita {
         return campo.getPedineBianche();
     }
     
+    public Scacchiera getCampo(){
+        return campo;
+    }
+    
     /*public void nuovaPedina(int r, int c){
         if(campo.controllaValidita(r,c,turno)){
             campo.getCasella(r, c).cambiaColore(turno);
